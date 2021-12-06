@@ -17,6 +17,8 @@ class HomePage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    double _width = MediaQuery.of(context).size.width;
     List<Graph> _cal = [
       Graph(name: 'Cal', data: 75, color: Color.fromRGBO(235, 97, 143, 1)),
     ];
@@ -48,10 +50,26 @@ class HomePage extends HookWidget {
     // );
     return Scaffold(
       extendBodyBehindAppBar: true,
+      key: _scaffoldKey,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
+        leading: (!Responsive.isDesktop(context))
+            ? Container(
+                child: IconButton(
+                  icon: Icon(
+                    Icons.menu,
+                    color: Colors.black,
+                    size: 24.0,
+                  ),
+                  onPressed: () {
+                    // Scaffold.of(context).openDrawer();
+                    _scaffoldKey.currentState!.openDrawer();
+                  },
+                ),
+              )
+            : null,
         actions: [
           Expanded(child: SizedBox()),
           Container(
@@ -74,9 +92,10 @@ class HomePage extends HookWidget {
           )
         ],
       ),
+      drawer: (!Responsive.isDesktop(context)) ? CustomDrawer() : null,
       body: Row(
         children: [
-          CustomDrawer(),
+          if (Responsive.isDesktop(context)) CustomDrawer(),
           Expanded(
             child: Container(
               padding: EdgeInsets.only(left: 30, right: 30),
@@ -90,38 +109,54 @@ class HomePage extends HookWidget {
                   ),
                   Expanded(
                       child: ListView(
-                    padding: EdgeInsets.zero,
+                    padding: EdgeInsets.all(30),
                     children: [
                       ////////////////////////////////////////////////////////////////
-                      Container(
-                        height: 200,
-                        // width: double.infinity,
-                        //color: Colors.white,
-
-                        child: Row(
-                          children: [
-                            Header(),
-                            StatsCircularGraph(
-                                cal: _cal, fats: _fats, carbs: _carbs),
-                          ],
+                      if (_width > 800)
+                        Container(
+                          height: 200,
+                          child: Row(
+                            children: [
+                              Header(),
+                              SizedBox(
+                                width: 30,
+                              ),
+                              StatsCircularGraph(
+                                  cal: _cal, fats: _fats, carbs: _carbs),
+                            ],
+                          ),
                         ),
-                      ),
 
-                      ////////////////////////////////////////////////////////////////////////////
-                      Container(
-                        height: 100,
-                        child: Row(
-                          children: [
-                            Gradientbutton(),
-                            WeeklyStats(),
-                          ],
+                      if (_width <= 800) Header(),
+                      if (_width <= 800)
+                        SizedBox(
+                          height: 30,
                         ),
-                      ),
-
-                      /////////////////////////////////////////////////////////////////////////////////////////////
-                      WeeklyCalendar(),
-                      //////////////////////////////////////////////////////////////////////////
-                      MealsPerDay(),
+                      if (_width <= 800)
+                        StatsCircularGraph(
+                            cal: _cal, fats: _fats, carbs: _carbs),
+                      ////
+                      // SizedBox(
+                      //   height: 30,
+                      // ),
+                      // ////////////////////////////////////////////////////////////////////////////
+                      // Container(
+                      //   height: 100,
+                      //   child: Row(
+                      //     children: [
+                      //       Gradientbutton(),
+                      //       WeeklyStats(),
+                      //     ],
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 30,
+                      // ),
+                      // ////
+                      // /////////////////////////////////////////////////////////////////////////////////////////////
+                      // WeeklyCalendar(),
+                      // //////////////////////////////////////////////////////////////////////////
+                      // MealsPerDay(),
                     ],
                   )),
                 ],
