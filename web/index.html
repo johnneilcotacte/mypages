@@ -94,5 +94,23 @@
       loadMainDartJs();
     }
   </script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js"></script> 
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-messaging.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyBtzfOquF-q2nRjfgSKQel_ACYCB2Z_Sjw",
+      authDomain: "flutter-additionals.firebaseapp.com",
+      projectId: "flutter-additionals",
+      storageBucket: "flutter-additionals.appspot.com",
+      messagingSenderId: "638429090688",
+      appId: "1:638429090688:web:b1624635b0ca636ac42765",
+      measurementId: "G-T80GK33BR7"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+  </script>
 </body>
 </html>

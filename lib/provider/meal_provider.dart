@@ -21,9 +21,9 @@ class BlogsNotifier extends ChangeNotifier {
   List<Meal> get mealList => _mealList;
 
   Future<List<Meal>> getMeals() async {
-    final data = await meal.initializeListBlog();
+    // final data = await meal.initializeListBlog();
 
-    _mealList = data;
+    //_mealList = data;
 
     return _mealList;
   }
