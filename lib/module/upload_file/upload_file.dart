@@ -108,19 +108,20 @@ class BonusPage extends HookWidget {
                   : Container(),
               SizedBox(height: 20),
               Container(
-                height: 50,
+                height: 200,
                 width: double.infinity,
                 color: Colors.black,
                 child: Center(
-                  child: (_link != null)
-                      ? Text(
-                          _link,
-                          style: TextStyle(color: Colors.white),
-                        )
-                      : Text(
-                          'No Link Yet',
-                          style: TextStyle(color: Colors.white),
-                        ),
+                  // child: (_link != null)
+                  //     ? Text(
+                  //         _link,
+                  //         style: TextStyle(color: Colors.white),
+                  //       )
+                  //     : Text(
+                  //         'No Link Yet',
+                  //         style: TextStyle(color: Colors.white),
+                  //       ),
+                  child: Image.network(_imageprovider.url),
                 ),
               ),
             ],
