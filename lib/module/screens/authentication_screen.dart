@@ -44,6 +44,7 @@ class LoginPage extends HookWidget {
     //   ),
     // ];
     final _background = useState(0);
+
     useEffect(
       () {
         _everysecond = Timer.periodic(Duration(seconds: 7), (Timer t) {

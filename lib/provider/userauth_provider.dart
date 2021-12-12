@@ -1,27 +1,17 @@
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter_miniproject/api/auth.dart';
-// import 'package:flutter_miniproject/provider/userauth_api_provider.dart';
-// import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_miniproject/api/auth.dart';
 
-// final authProvider = ChangeNotifierProvider<GetPostUser>((ref) {
-//   final initialauth = ref.watch(authAPIProvider).auth;
-//   return GetPostUser(auth: initialauth);
-// });
+import 'package:flutter_miniproject/provider/userauth_api_provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-// class GetPostUser extends ChangeNotifier {
-//   final AuthAPI auth;
-//   GetPostUser({
-//     required this.auth,
-//   });
+final authProvider = ChangeNotifierProvider<UserAuth>((ref) {
+  final initialauth = ref.watch(authAPIProvider).auth;
+  return UserAuth(api: initialauth);
+});
 
-//   bool _loginstatus = false;
-//   bool get loginstatus => _loginstatus;
+class UserAuth extends ChangeNotifier {
+  AuthAPI api;
+  UserAuth({required this.api});
 
-//   Future<void> addMeal(
-//       {required String email, required String password}) async {
-//     final data = await auth.logInUser(email: email, password: password);
-//     _loginstatus = data;
-
-//     notifyListeners();
-//   }
-// }
+  //Future<String?>
+}

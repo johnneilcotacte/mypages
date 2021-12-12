@@ -23,38 +23,41 @@ class WeeklyCalendar extends StatelessWidget {
         ],
       ),
       padding: EdgeInsets.only(left: 50, right: 50),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _Date(
-            date: '29',
-            day: 'Monday',
-          ),
-          _Date(
-            date: '30',
-            day: 'Tuesday',
-          ),
-          _Date(
-            date: '01',
-            day: 'Wednesday',
-          ),
-          _Date(
-            date: '02',
-            day: 'Thursday',
-          ),
-          _Date(
-            date: '03',
-            day: 'Friday',
-          ),
-          _Date(
-            date: '04',
-            day: 'Saturday',
-          ),
-          _Date(
-            date: '05',
-            day: 'Sunday',
-          ),
-        ],
+      child: FittedBox(
+        fit: BoxFit.contain,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _Date(
+              date: '29',
+              day: 'Monday',
+            ),
+            _Date(
+              date: '30',
+              day: 'Tuesday',
+            ),
+            _Date(
+              date: '01',
+              day: 'Wednesday',
+            ),
+            _Date(
+              date: '02',
+              day: 'Thursday',
+            ),
+            _Date(
+              date: '03',
+              day: 'Friday',
+            ),
+            _Date(
+              date: '04',
+              day: 'Saturday',
+            ),
+            _Date(
+              date: '05',
+              day: 'Sunday',
+            ),
+          ],
+        ),
       ),
     );
   }

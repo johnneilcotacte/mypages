@@ -1,96 +1,104 @@
-import 'dart:typed_data';
-import 'package:flutter/services.dart';
-import 'package:flutter_miniproject/model/meal.dart';
-import 'package:flutter_miniproject/model/ingredient.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
+//https://firebase.flutter.dev/docs/storage/usage/
 class AuthAPI {
-  String _meal_uri = '';
+  String _loginuri = 'https://wca-meal-planner.herokuapp.com/';
 
-  Future<bool> logInUser(
+  Future<Response?> logInUser(
       {required String email, required String password}) async {
+    print(password);
     try {
-      var url = Uri.parse('https://reqres.in/api/login');
+      var url = Uri.parse(_loginuri + 'auth');
       var response = await http.post(
         url,
         body: {
-          "email": "$email",
-          "password": "$password",
+          "identifier": email,
+          "password": password,
         },
       );
 
-      if (response.statusCode == 200) {
-        // print(response.body);
-        return true;
-      } else {
-        // print('invalid');
-        return false;
-      }
+      // if (response.statusCode == 200) {
+      //   // print(response.body);
+      //   return true;
+      // } else {
+      //   // print('invalid');
+      //   return false;
+      // }
+      return response;
     } catch (er) {
-      throw Exception(er);
+      return null;
+      //throw Exception(er);
     }
   }
 
-  Future<bool> createUser({
-    required String username,
-    required String password,
-    required String firstname,
-    required String lastname,
-    required String email,
-    required String age,
-  }) async {
+  Future<Response?> createUser(
+      {
+      // required String username,
+      // required String password,
+      // required String firstname,
+      // required String lastname,
+      // required String email,
+      required Map<String, dynamic> signup}) async {
     try {
-      var url = Uri.parse('https://example.com/whatsit/create');
-      var response = await http.post(
-        url,
-        body: {
-          "username": "$username",
-          "password": "$password",
-          "first_name": "$firstname",
-          "last_name": "$lastname",
-          "email": "$email",
-          "age": "$age"
-        },
-      );
-      if (response.statusCode == 200) {
-        //print(response.body);
-        return true;
-      } else {
-        //print('invalid');
-        return false;
-      }
+      var url = Uri.parse(_loginuri + 'users');
+      var response = await http.post(url,
+          // body: {
+          //   "username": "$username",
+          //   "password": "$password",
+          //   "first_name": "$firstname",
+          //   "last_name": "$lastname",
+          //   "email": "$email",
+          // },
+          body: signup);
+
+      // if (response.statusCode == 201) {
+      //   print(response.body);
+      //   return response.body;
+      // } else {
+      //   print('invalid');
+      //   return response.body;
+      // }
+      return response;
     } catch (er) {
-      throw Exception(er);
+      //return er.toString();
+      return null;
     }
   }
 }
 
+// class InitialDummyMeals {
+//   Future<List<Meal>> initializeListBlog() async {
+//     Uint8List? _image0 = (await rootBundle.load('assets/images/hotdog.png'))
+//         .buffer
+//         .asUint8List();
+//     Uint8List? _image1 = (await rootBundle.load('assets/images/lechon.jpg'))
+//         .buffer
+//         .asUint8List();
+//     Uint8List? _image2 = (await rootBundle.load('assets/images/paksiw.jpg'))
+//         .buffer
+//         .asUint8List();
 
-class InitialDummyMeals {
-  // Future<List<Meal>> initializeListBlog() async {
-  //   Uint8List? _image0 = (await rootBundle.load('assets/images/hotdog.png'))
-  //       .buffer
-  //       .asUint8List();
-  //   Uint8List? _image1 = (await rootBundle.load('assets/images/lechon.jpg'))
-  //       .buffer
-  //       .asUint8List();
-  //   Uint8List? _image2 = (await rootBundle.load('assets/images/paksiw.jpg'))
-  //       .buffer
-  //       .asUint8List();
-
-  //   return [
-  //     Meal(id: '1', name: 'hotdog', image: _image1, recipes: [
-  //       Ingredient(id: 'b1', name: 'hotdog', isBought: false),
-  //     ]),
-  //     Meal(id: '2', name: 'Lechon', image: _image0, recipes: [
-  //       Ingredient(id: 'a1', name: 'pig', isBought: true),
-  //       Ingredient(id: 'a2', name: 'bawang', isBought: true),
-  //       Ingredient(id: 'a3', name: 'MSG', isBought: true),
-  //     ]),
-  //     Meal(id: '3', name: 'Lechon Paksiw', image: _image2, recipes: [
-  //       Ingredient(id: 'c1', name: 'lechon', isBought: true),
-  //       Ingredient(id: 'c2', name: 'tuyo', isBought: false),
-  //     ]),
-  //   ];
-  // }
-}
+//     return [
+//       Meal(
+//           id: '1',
+//           name: 'hotdog',
+//           image: 'https://picsum.photos/250?image=9',
+//           ingredients: [
+//             'hotdog',
+//           ]),
+//       Meal(
+//           id: '2',
+//           name: 'Lechon',
+//           image:
+//               'https://firebasestorage.googleapis.com/v0/b/flutter-additionals.appspot.com/o/files%2FCornSiLog%20(%20Corned%20Beef%2C%20Sinangag%2C%20Itlog)%20with%20Highlands%20Gold%20Corned%20Beef%20-%20The%20Peach%20Kitchen.png?alt=media&token=20db0da1-6851-49e0-b10c-61192a109f59',
+//           ingredients: ['pig', 'bawang', 'msg']),
+//       Meal(
+//           id: '3',
+//           name: 'Lechon Paksiw',
+//           image:
+//               'https://firebasestorage.googleapis.com/v0/b/flutter-additionals.appspot.com/o/files%2FCornSiLog%20(%20Corned%20Beef%2C%20Sinangag%2C%20Itlog)%20with%20Highlands%20Gold%20Corned%20Beef%20-%20The%20Peach%20Kitchen.png?alt=media&token=20db0da1-6851-49e0-b10c-61192a109f59',
+//           ingredients: ['lechon', 'tuyo']),
+//     ];
+//   }
+// }
